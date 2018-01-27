@@ -6,6 +6,8 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Test.Assert (ASSERT, assert)
 
+import Data.Array (range)
+import Data.Int (odd)
 import Data.Set (Set)
 import Data.Set as S
 
@@ -20,6 +22,11 @@ main = do
      assert $ S.member 0 set
      assert $ S.member 1 set
      assert $ S.member 2 set
+
+  log "filter"
+  do let s1 = S.fromFoldable (range 0 10)
+         s2 = S.fromFoldable [1, 3, 5, 7, 9]
+     assert $ S.filter odd s1 == s2
 
   log "intersection"
   do let s1 = S.fromFoldable [1,2,3,4,5]

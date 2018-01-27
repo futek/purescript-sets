@@ -11,6 +11,7 @@ module Data.Set
   , isEmpty
   , singleton
   , map
+  , filter
   , checkValid
   , insert
   , member
@@ -102,6 +103,10 @@ singleton a = Set (M.singleton a unit)
 -- | elements will result in a set with one element.
 map :: forall a b. Ord b => (a -> b) -> Set a -> Set b
 map f = foldl (\m a -> insert (f a) m) empty
+
+-- | Filter out those values of a set for which a predicate fails to hold.
+filter :: forall a. Ord a => (a -> Boolean) -> Set a -> Set a
+filter predicate (Set m) = Set (M.filterKeys predicate m)
 
 -- | Check whether the underlying tree satisfies the 2-3 invariant
 -- |
